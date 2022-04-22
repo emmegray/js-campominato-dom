@@ -14,6 +14,11 @@ body {
     color: white;
 }
 
+.bg-red {
+    background-color: rgb(128, 7, 7);
+    color: white;
+}
+
 /* HEADER */
 header {
     padding-bottom: 20px;

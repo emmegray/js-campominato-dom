@@ -1,6 +1,6 @@
-/*Js Griglia Campo Minato
+/*Js Griglia Campo Minato e gameplay definitivo
 1. L'utente indica un livello di difficoltà al quale viene generata una griglia di gioco quadrata
-    Ogni cella continue un numero compreso tra:
+    Ogni cella contiene un numero compreso tra:
     
     Difficoltà 1 > tra 1 e 100
     Difficoltà 2 > tra 1 e 81
@@ -26,12 +26,8 @@ tasto.addEventListener('click', function (evento) {
     creaGriglia(livelloDifficolta);
 })
 
-
 function creaGriglia(difficolta = 'easy'){
-    if (griglia.classList.contains('easy'))griglia.classList.replace('easy', difficolta)
-    if (griglia.classList.contains('normal'))griglia.classList.replace('normal', difficolta)
-    if (griglia.classList.contains('hard'))griglia.classList.replace('hard', difficolta)
-
+    griglia.className = (`griglia p-4 ${difficolta}`);
     griglia.innerHTML = ('');
 
     let numeroDiCelle = 25;
@@ -45,7 +41,8 @@ function creaGriglia(difficolta = 'easy'){
         numeroDiCelle = 64;
     }
     if (difficolta === 'hard') {
-        max = 49; numeroDiCelle = 100;
+        max = 49; 
+        numeroDiCelle = 100;
     }
     
     const numeri = [];
@@ -62,7 +59,4 @@ function creaGriglia(difficolta = 'easy'){
         })
         griglia.appendChild(quadrato);
     }
-    console.log(numeri);
 }
-
-creaGriglia('easy')
