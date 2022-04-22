@@ -31,23 +31,21 @@ function creaGriglia(difficolta = 'easy'){
     griglia.innerHTML = ('');
 
     let numeroDiCelle = 25;
-    let  max = 100; 
     if (difficolta === 'easy') {
-        max = 100;
-        numeroDiCelle = 25;
+        numeroDiCelle = 100;
     }
     if (difficolta === 'normal') {
-        max = 81;
         numeroDiCelle = 64;
     }
     if (difficolta === 'hard') {
-        max = 49; 
-        numeroDiCelle = 100;
+        numeroDiCelle = 25;
     }
-    
+
+    const bombe = generaBombe(numeroDiCelle)
     const numeri = [];
+
     while (numeri.length < numeroDiCelle) {
-        numeri.push(Math.floor(Math.random() * max + 1))
+        numeri.push(numeri.length + 1)
     }
     for (let index = 0; index < numeri.length; index++) {
         const numero = numeri[index];
@@ -55,8 +53,33 @@ function creaGriglia(difficolta = 'easy'){
         quadrato.className = 'quadrato';
         quadrato.textContent = numero;
         quadrato.addEventListener('click', function () {
-            quadrato.classList.add('bg-blue')
+            if (bombe.includes(numero)){
+                quadrato.classList.add('bomb')
+            } else {
+                quadrato.classList.add('clicked')
+            }
         })
         griglia.appendChild(quadrato);
     }
+}
+
+function generaBombe(numeroDiCelle, max) {
+    const bombeGenerate = [];
+    const bombe = 16;
+
+    while (bombeGenerate.length < bombe) {
+        const nuovaBomba = generaNumeroRandom (1, numeroDiCelle);
+        if (!bombeGenerate.includes(nuovaBomba)){
+            bombeGenerate.push(nuovaBomba);
+        }
+    }
+
+    console.log(bombeGenerate);
+
+    return bombeGenerate;
+}
+
+
+function generaNumeroRandom(min = 1, max = 2) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
