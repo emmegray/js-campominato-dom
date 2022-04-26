@@ -7,7 +7,7 @@
     Difficoltà 3 > tra 1 e 49
 
 2. Il computer genera 16 numeri casuali rispetto alla difficoltà selezionata
-3. Cliccando su una casella con la bomba la cella di colora di rosso e la partita termina.
+3. Cliccando su una casella con la bomba la cella si colora di rosso e la partita termina.
     Altrimenti la cella si colora di azzurro e l'utente può continuare a giocare.
 4. Al termine della partita comunicare il punteggio con numero di volte che l'utente ha cliccato su una cella che non era una bomba.
 
@@ -19,13 +19,15 @@ BONUS:
 const selezioneDifficolta = document.querySelector("#difficulty");
 const griglia = document.querySelector('.griglia');
 const tasto = document.querySelector('#play');
+let punteggio = [];
 
+// Selezione livello
 tasto.addEventListener('click', function (evento) {
     const livelloDifficolta = selezioneDifficolta.value;
-    alert(`Difficoltà ${livelloDifficolta}`)
     creaGriglia(livelloDifficolta);
 })
 
+// Creazione griglia in base alla difficoltà
 function creaGriglia(difficolta = 'easy'){
     griglia.className = (`griglia p-4 ${difficolta}`);
     griglia.innerHTML = ('');
@@ -41,6 +43,7 @@ function creaGriglia(difficolta = 'easy'){
         numeroDiCelle = 25;
     }
 
+// Posizionamento bombe
     const bombe = generaBombe(numeroDiCelle)
     const numeri = [];
 
@@ -56,7 +59,8 @@ function creaGriglia(difficolta = 'easy'){
             if (bombe.includes(numero)){
                 quadrato.classList.add('bomb')
             } else {
-                quadrato.classList.add('clicked')
+                quadrato.classList.add('clicked');
+                punteggio++;
             }
         })
         griglia.appendChild(quadrato);
@@ -73,9 +77,6 @@ function generaBombe(numeroDiCelle, max) {
             bombeGenerate.push(nuovaBomba);
         }
     }
-
-    console.log(bombeGenerate);
-
     return bombeGenerate;
 }
 
